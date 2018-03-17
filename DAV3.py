@@ -99,7 +99,8 @@ def feature_sign_search(x,theta,y,A):
                         sum_overi+=A[j,i]*x[i]
                     sum_overj+=(y[j]-sum_overi)*(-A[j,ind])
                 nonz_diff[ind]=2*sum_overj
-                if nonz_diff[ind] + gamma*np.sign(nonzero_x[ind])>0.01 or nonz_diff[ind] + gamma*np.sign(nonzero_x[ind])<-0.01:
+                if nonz_diff[ind] + gamma*np.sign(nonzero_x[ind]) !=0:
+#                if nonz_diff[ind] + gamma*np.sign(nonzero_x[ind])>0.01 or nonz_diff[ind] + gamma*np.sign(nonzero_x[ind])<-0.01:
                     cond1=False
 #            print("nonz_diff=",nonz_diff)
 #            print("sign of x: ",np.sign(nonzero_x))
