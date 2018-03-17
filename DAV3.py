@@ -3,7 +3,6 @@
 # and another file named "A.txt" that has the elements of A stored as: row elements separated by a comma, each row on a new line
 # A contains the basis vectors as its columns
 
-
 import numpy as np
 
 def feature_sign_search(x,theta,y,A):
@@ -143,7 +142,7 @@ theta = np.zeros(xd)
 #A contains the basis vectors as its column vectors
 x_sol = feature_sign_search(x,theta,y,A)
 
-print(x_sol)
-print(A)
-print(y)
-print(np.matmul(A,x_sol))
+print("x: ",x_sol)
+print("A: ",A)
+print("y: ",y)
+print("A.x: ",np.matmul(A,x_sol))
