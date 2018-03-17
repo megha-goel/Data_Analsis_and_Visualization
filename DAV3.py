@@ -1,23 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 17 21:44:29 2018
-
-@author: HP
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 17 16:50:46 2018
-
-@author: HP
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 17 11:16:11 2018
-
-@author: HP
-"""
 
 import numpy as np
 
@@ -59,22 +39,22 @@ def feature_sign_search(x,theta,y,A):
             x_cap=x[active]
             theta_cap=np.sign(x_cap)
             curr_sign=theta_cap
-            print("A_cap: ",A_cap)
-            print("x_cap: ",x_cap)
-            print("theta_cap: ",theta_cap)
+            #print("A_cap: ",A_cap)
+            #print("x_cap: ",x_cap)
+            #print("theta_cap: ",theta_cap)
             
             term1=np.linalg.inv(np.matmul(A_cap.T,A_cap))
             term2=np.matmul(A_cap.T,y)-(gamma/2)*theta_cap
-            print("term1: ",term1, "term2: ",term2)
+            #print("term1: ",term1, "term2: ",term2)
             xnew_cap=np.matmul(term1,term2)
-            print("x_cap= ",x_cap)
-            print("xnew_cap=",xnew_cap)
+            #print("x_cap= ",x_cap)
+            #print("xnew_cap=",xnew_cap)
         
             direction=xnew_cap-x_cap
             min_obj=np.linalg.norm(y-np.matmul(A_cap,x_cap))**2 + gamma*np.dot(theta_cap,x_cap)
             min_x=x_cap
-            print("\nIteration: ",itr)
-            print("active indices: ", active)
+            #print("\nIteration: ",itr)
+            #print("active indices: ", active)
         
             for frac in np.arange(0,1.1,0.1):
                 xtry=x_cap+frac*direction
@@ -88,7 +68,7 @@ def feature_sign_search(x,theta,y,A):
             x_cap=min_x
             theta_cap=np.sign(x_cap)
             new_sign=theta_cap
-            print("x_cap optimized: ",min_x)
+            #print("x_cap optimized: ",min_x)
             j=0
             for i in active:
                 x[i]=x_cap[j]
@@ -115,14 +95,14 @@ def feature_sign_search(x,theta,y,A):
                 nonz_diff[ind]=2*sum_overj
                 if nonz_diff[ind] + gamma*np.sign(nonzero_x[ind])>0.01 or nonz_diff[ind] + gamma*np.sign(nonzero_x[ind])<-0.01:
                     cond1=False
-            print("nonz_diff=",nonz_diff)
-            print("sign of x: ",np.sign(nonzero_x))
+            #print("nonz_diff=",nonz_diff)
+            #print("sign of x: ",np.sign(nonzero_x))
             if cond1 == True or min(curr_sign==new_sign)==True:
-                print("cond1 satisfied!! breaking out")
-                print(cond1)
+                #print("cond1 satisfied!! breaking out")
+                #print(cond1)
                 break
     
-        print("broke out successfully")
+        #print("broke out successfully")
     
         zero_x=x[x==0]
         z_diff=np.zeros(len(zero_x))
@@ -140,10 +120,10 @@ def feature_sign_search(x,theta,y,A):
                 cond2 = False
         
         if cond2 == True or itr>10:
-            print("cond2 satisfied!! breaking out!!!")
-            print(cond2)
+            #print("cond2 satisfied!! breaking out!!!")
+            #print(cond2)
             break
-    print("broke out successfully")
+    #print("broke out successfully")
     return x
     
     
