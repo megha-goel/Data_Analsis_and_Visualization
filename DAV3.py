@@ -9,7 +9,7 @@ def feature_sign_search(x,theta,y,A):
     #x are the weights of the basis vectors
     #theta are the signs of the x
     #step 1:initialization
-    gamma=0.001
+    gamma=10**-8
     itr=0
     active=[]
     while (True):
