@@ -1,18 +1,36 @@
-import numpy as np
-import logging
-log = logging.getLogger("feature_sign")
-log.setLevel(logging.INFO)
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Mar 17 21:44:29 2018
 
+@author: HP
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Mar 17 16:50:46 2018
+
+@author: HP
+"""
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Mar 17 11:16:11 2018
+
+@author: HP
+"""
+
+import numpy as np
 
 def feature_sign_search(x,theta,y,A):
     #x are the weights of the basis vectors
     #theta are the signs of the x
     #step 1:initialization
-    gamma=0.5
+    gamma=0.1
     itr=0
+    active=[]
     while (True):
     #step 2: from zero coefficients of x select i=argmax (.. )
-        active=[]
+        active=list(active)
         theta=np.sign(x)
         diff=np.zeros(len(x))
         for ind in range(0,len(x)):
@@ -40,12 +58,13 @@ def feature_sign_search(x,theta,y,A):
             A_cap=A[:,active]
             x_cap=x[active]
             theta_cap=np.sign(x_cap)
+            curr_sign=theta_cap
             print("A_cap: ",A_cap)
             print("x_cap: ",x_cap)
             print("theta_cap: ",theta_cap)
             
             term1=np.linalg.inv(np.matmul(A_cap.T,A_cap))
-            term2=np.matmul(A_cap.T,y)-(gamma*theta_cap)/2
+            term2=np.matmul(A_cap.T,y)-(gamma/2)*theta_cap
             print("term1: ",term1, "term2: ",term2)
             xnew_cap=np.matmul(term1,term2)
             print("x_cap= ",x_cap)
@@ -60,25 +79,28 @@ def feature_sign_search(x,theta,y,A):
             for frac in np.arange(0,1.1,0.1):
                 xtry=x_cap+frac*direction
 #                print("xtry= ",xtry)
-                obj=np.linalg.norm(y-np.matmul(A_cap,xtry))**2 + gamma*np.dot(theta_cap,xtry)
-#                print("obj: ",obj)
-                if obj<min_obj:
-                    min_x=xtry
-                    min_obj=obj
+                if min(np.sign(xtry)==np.sign(x_cap))==False:
+                    obj=np.linalg.norm(y-np.matmul(A_cap,xtry))**2 + gamma*np.dot(theta_cap,xtry)
+#                    print("obj: ",obj)
+                    if obj<min_obj:
+                        min_x=xtry
+                        min_obj=obj
             x_cap=min_x
-            print("x_cap optimized: ",x_cap)
+            theta_cap=np.sign(x_cap)
+            new_sign=theta_cap
+            print("x_cap optimized: ",min_x)
             j=0
             for i in active:
                 x[i]=x_cap[j]
                 j=j+1
-            activenew=[]
+#            activenew=[]
             theta=np.sign(x)
         
-            for i in active:
-                if x[i]!=0:
-                    activenew.append(i)
-            activenew=np.asarray(activenew)
-            active=activenew
+#            for i in active:
+#                if x[i]!=0:
+#                    activenew.append(i)
+#            activenew=np.asarray(activenew)
+#            active=activenew
             nonzero_x=x[x!=0]
             nonz_diff=np.zeros(len(nonzero_x))
             cond1=True
@@ -95,12 +117,12 @@ def feature_sign_search(x,theta,y,A):
                     cond1=False
             print("nonz_diff=",nonz_diff)
             print("sign of x: ",np.sign(nonzero_x))
-            if cond1 == True or itr>20:
+            if cond1 == True or min(curr_sign==new_sign)==True:
                 print("cond1 satisfied!! breaking out")
-#                print(cond1)
+                print(cond1)
                 break
     
-#        print("broke out successfully")
+        print("broke out successfully")
     
         zero_x=x[x==0]
         z_diff=np.zeros(len(zero_x))
@@ -117,12 +139,11 @@ def feature_sign_search(x,theta,y,A):
             if abs(z_diff[ind]) > gamma:
                 cond2 = False
         
-        
-        if cond2 == True or itr>150:
-#            print("cond2 satisfied!! breaking out!!!")
-#            print(cond2)
+        if cond2 == True or itr>10:
+            print("cond2 satisfied!! breaking out!!!")
+            print(cond2)
             break
-#    print("broke out successfully")
+    print("broke out successfully")
     return x
     
     
