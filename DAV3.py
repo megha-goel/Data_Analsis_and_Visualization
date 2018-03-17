@@ -126,7 +126,7 @@ def feature_sign_search(x,theta,y,A):
             if abs(z_diff[ind]) > gamma:
                 cond2 = False
         
-        if cond2 == True or itr>50:
+        if cond2 == True:# or itr>50:
 #            print("cond2 satisfied!! breaking out!!!")
 #            print(cond2)
             break
