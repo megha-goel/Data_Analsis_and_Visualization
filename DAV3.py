@@ -1,24 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 17 21:44:29 2018
-
-@author: HP
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 17 16:50:46 2018
-
-@author: HP
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Mar 17 11:16:11 2018
-
-@author: HP
-"""
-
 import numpy as np
 import logging
 log = logging.getLogger("feature_sign")
