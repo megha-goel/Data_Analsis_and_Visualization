@@ -1,3 +1,8 @@
+# files needed:  A file named "y.txt" that has the vector to be coded saved as one element per row of the text file--
+# (i.e, each element separated by a new line character)
+# and another file named "A.txt" that has the elements of A stored as: row elements separated by a comma, each row on a new line
+# A contains the basis vectors as its columns
+
 
 import numpy as np
 
