@@ -62,6 +62,7 @@ def feature_sign_search(x,theta,y,A):
         
             for frac in np.arange(0,1.1,0.1):
                 xtry=x_cap+frac*direction
+                theta_cap=np.sign(xtry)
 #                print("xtry= ",xtry)
                 if min(np.sign(xtry)==np.sign(x_cap))==False:
                     obj=np.linalg.norm(y-np.matmul(A_cap,xtry))**2 + gamma*np.dot(theta_cap,xtry)
